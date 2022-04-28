@@ -1,0 +1,53 @@
+nav {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.1);
+    padding: 0 10%;
+    font-family: "Teko", sans-serif;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.logout-button {
+    border: none;
+    margin-left: 15px;
+    font-size: 24px;
+    font-family: "Teko", sans-serif;
+    background-color: transparent;
+    color: #1e90c2;
+}
+
+.logout-button:hover {
+    color: #1b4388;
+}
+
+.link {
+    text-decoration: none;
+    border-bottom: 1px solid grey;
+    margin-left: 15px;
+    font-size: 24px;
+    color: #1e90c2;
+    transition: color ease-in-out 300ms;
+}
+
+.link:hover {
+    color: #1b4388;
+}
+
+.active-link {
+    text-decoration: none;
+    border-bottom: 2px;
+    border-bottom-color: crimson;
+    border-bottom-style: solid;
+    margin-left: 15px;
+    font-size: 24px;
+    transition: color ease-in-out 800ms;
+    color: #1b4388;
+}
