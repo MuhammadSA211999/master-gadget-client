@@ -18,15 +18,21 @@ const Header = () => {
             <div className='link-container'>
                 <NavLink
                     className={({ isActive }) => (isActive ? "active-link" : "link")}
-                    to='/youractivity'
+                    to='/manage'
                 >
-                    Activity
+                    Manage
                 </NavLink>
                 <NavLink
                     className={({ isActive }) => (isActive ? "active-link" : "link")}
-                    to='/contribute'
+                    to='/addGadget'
                 >
-                    Coutribution
+                    Add
+                </NavLink>
+                <NavLink
+                    className={({ isActive }) => (isActive ? "active-link" : "link")}
+                    to='/myItems'
+                >
+                    My Items
                 </NavLink>
                 {user?.email ? (
                     <button onClick={handleSignOut} className='logout-button'>

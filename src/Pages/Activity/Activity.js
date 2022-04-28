@@ -5,7 +5,7 @@ const Activity = () => {
     return (
         <div>
             <h1>your activity</h1>
-            <Link to='/addactivity'>Add activity</Link>
+            <Link to='/addGadget'>Add activity</Link>
         </div>
     );
 };

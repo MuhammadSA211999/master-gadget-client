@@ -11,6 +11,7 @@ import WrongRoute from './Pages/WrongRoute/WrongRoute';
 import OrgInfo from './Pages/OrgInfo/OrgInfo';
 import Home from './Pages/Home/Home';
 import Update from './Pages/Update/Update';
+import MyItems from './Pages/MyItems/MyItems';
 function App() {
   return (
     <div>
@@ -24,8 +25,9 @@ function App() {
         <Route path='/signIn' element={<Signin></Signin>}></Route>
         <Route path='/resetPass' element={<ResetPass></ResetPass>}></Route>
         <Route path='/orgInfo' element={<OrgInfo></OrgInfo>}></Route>
-        <Route path='/youractivity' element={<Activity></Activity>}></Route>
-        <Route path='/addActivity' element={<Addactivity></Addactivity>}></Route>
+        <Route path='myItems' element={<MyItems></MyItems>}></Route>
+        <Route path='/manage' element={<Activity></Activity>}></Route>
+        <Route path='/addGadget' element={<Addactivity></Addactivity>}></Route>
         <Route path='*' element={<WrongRoute></WrongRoute>}></Route>
       </Routes>
     </div>
