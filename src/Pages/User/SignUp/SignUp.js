@@ -22,6 +22,8 @@ const SignUp = () => {
     const [signInWithGithub, github] = useSignInWithGithub(auth)
     const [createUserWithEmailAndPassword, user] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true })
     const [updateProfile] = useUpdateProfile(auth)
+    console.log(user);
+
     const navigate = useNavigate();
     if (google || facebook || github || user) {
         toast.success('Thanks for joining', { id: 'test' })

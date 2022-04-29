@@ -16,24 +16,28 @@ const Header = () => {
                 <strong>Logo</strong>
             </div>
             <div className='link-container'>
-                <NavLink
-                    className={({ isActive }) => (isActive ? "active-link" : "link")}
-                    to='/manage'
-                >
-                    Manage
-                </NavLink>
-                <NavLink
+                {
+                    user?.email ? <NavLink
+                        className={({ isActive }) => (isActive ? "active-link" : "link")}
+                        to='/manage'
+                    >
+                        Manage
+                    </NavLink> : ''
+                }
+                {user?.email ? <NavLink
                     className={({ isActive }) => (isActive ? "active-link" : "link")}
                     to='/addGadget'
                 >
                     Add
-                </NavLink>
-                <NavLink
+                </NavLink> : ''}
+                {user?.email ? <NavLink
                     className={({ isActive }) => (isActive ? "active-link" : "link")}
                     to='/myItems'
                 >
                     My Items
-                </NavLink>
+                </NavLink> : ''}
+
+
                 {user?.email ? (
                     <button onClick={handleSignOut} className='logout-button'>
                         Logout

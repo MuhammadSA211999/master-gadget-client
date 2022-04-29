@@ -6,7 +6,7 @@ const Gadget = ({ gadget }) => {
     const { name, price, image, supplier, description, _id } = gadget
     return (
         <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={image} />
+            <Card.Img variant="top" height={80} src={image} />
             <Card.Body>
                 <div className='d-flex'>
                     <Card.Title>{name}</Card.Title>
@@ -14,7 +14,7 @@ const Gadget = ({ gadget }) => {
                 </div>
                 <Card.Title>{price}</Card.Title>
                 <Card.Text>
-                    {description}
+                    {description.slice(0, 60)}
                 </Card.Text>
             </Card.Body>
             <Card.Body>
