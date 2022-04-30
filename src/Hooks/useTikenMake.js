@@ -9,7 +9,8 @@ const useTokenMake = (user) => {
         const getToken = async () => {
             const email = user?.user?.email
             if (email) {
-                const { data } = await axios.post('http://localhost5000/login', { email })
+                const { data } = await axios.post('http://localhost:5000/login', { email })
+                console.log(data);
                 const secretToken = data.secretToken
                 setToken(secretToken)
                 localStorage.setItem('your_Token', secretToken)

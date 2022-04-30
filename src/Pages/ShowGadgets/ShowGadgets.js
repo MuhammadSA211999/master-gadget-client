@@ -1,7 +1,15 @@
 import React from 'react';
+import { useState } from 'react'
 
 const ShowGadgets = ({ gadget }) => {
-    const { name, price, image, supplier, quantity } = gadget
+    const { name, price, image, supplier, quantity, _id } = gadget
+    // const [deliCount, setDeliCount] = useState()
+    // console.log(deliCount);
+
+    // const handleDeliver = (id) => {
+    //     setDeliCount(deliCount - 1)
+
+    // }
     return (
         <li className="py-3 sm:py-4">
             <div className="flex items-center space-x-4">
@@ -18,6 +26,9 @@ const ShowGadgets = ({ gadget }) => {
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                         Stock: {quantity}
                     </p>
+                    {/* <button onClick={() => handleDeliver(_id)} className="text-sm text-gray-500 truncate dark:text-gray-400">
+                        deliver
+                    </button> */}
                 </div>
                 <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                     $ {price}

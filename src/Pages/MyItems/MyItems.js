@@ -20,12 +20,20 @@ const MyItems = () => {
         (async () => {
             const url = `http://localhost:5000/myGadgets?email=${email}`
             try {
-                const { data } = await axios.get(url)
+                const { data } = await axios.get(url, {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('your_Token')}`
+                    }
+                })
                 setMyGadgets(data)
             }
 
             catch (error) {
-                console.log(error);
+                if (error.response.status === 401 || error.response.status === 403) {
+                    toast.error(error.message, { id: 'error' })
+                    signOut(auth)
+                    navigate('/signIn')
+                }
 
             }
         })()

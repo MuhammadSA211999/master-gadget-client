@@ -1,67 +1,32 @@
 import './Signin.css'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
+import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import toast, { Toaster } from 'react-hot-toast';
+import useTokenMake from '../../../Hooks/useTikenMake'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import axios from 'axios';
 
 const Signin = () => {
     const location = useLocation()
+    const [user] = useAuthState(auth)
+    const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth)
     const [email, setEmail] = useState({ value: "", error: "" });
     const [password, setPassword] = useState({ value: "", error: "" });
     const from = location?.state?.from?.pathname || '/'
     const navigate = useNavigate();
 
-    const handleEmail = (event) => {
-        const emailInput = event.target.value;
-
-        if (/\S+@\S+\.\S+/.test(emailInput)) {
-            setEmail({ value: emailInput, error: "" });
-        } else {
-            setEmail({ value: "", error: "Please Provide a valid Email" });
-        }
-    };
-
-    const handlePassword = (event) => {
-        const passwordInput = event.target.value;
-        if (passwordInput === '') {
-            setPassword({ value: '', error: 'Please type your password' })
-        } else {
-            setPassword({ value: passwordInput, error: "" });
-        }
-
-    };
-
-    const handleLogin = (event) => {
-        event.preventDefault();
-
-        if (email.value === "") {
-            setEmail({ value: "", error: "Email is required" });
-        }
-
-        if (password.value === "") {
-            setPassword({ value: "", error: "Password is required" });
-        }
-
-        if (email.value && password.value) {
-            signInWithEmailAndPassword(auth, email.value, password.value)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    console.log(user);
-
-                    navigate(from, { replace: true });
-                })
-                .catch((error) => {
-                    const errorMessage = error.message;
-
-                    if (errorMessage.includes("wrong-password")) {
-                        toast.error("Wrong Password", { id: "error" });
-                    } else {
-                        toast.error(errorMessage, { id: "error" });
-                    }
-                });
-        }
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const email = e.target.email.value
+        const password = e.target.password.value
+        await signInWithEmailAndPassword(email, password)
+        const { data } = await axios.post('http://localhost:5000/login', { email })
+        const secretTokenStorage = data.secretToken
+        localStorage.setItem('your_Token', secretTokenStorage)
+        navigate(from, { replace: true })
     };
     return (
         <div className='auth-form-container '>
@@ -72,7 +37,7 @@ const Signin = () => {
                     <div className='input-field'>
                         <label htmlFor='email'>Email</label>
                         <div className='input-wrapper'>
-                            <input type='text' name='email' onBlur={handleEmail} id='email' />
+                            <input type='text' name='email' id='email' />
                         </div>
                         {email.error && (
                             <p className='d-flex error'>
@@ -85,7 +50,6 @@ const Signin = () => {
                         <div className='input-wrapper'>
                             <input
                                 type='password'
-                                onBlur={handlePassword}
                                 name='password'
                                 id='password'
                             />
