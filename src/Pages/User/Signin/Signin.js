@@ -1,3 +1,4 @@
+import './Signin.css'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { AiOutlineExclamationCircle } from "react-icons/ai";
@@ -24,8 +25,12 @@ const Signin = () => {
 
     const handlePassword = (event) => {
         const passwordInput = event.target.value;
+        if (passwordInput === '') {
+            setPassword({ value: '', error: 'Please type your password' })
+        } else {
+            setPassword({ value: passwordInput, error: "" });
+        }
 
-        setPassword({ value: passwordInput, error: "" });
     };
 
     const handleLogin = (event) => {
@@ -43,6 +48,8 @@ const Signin = () => {
             signInWithEmailAndPassword(auth, email.value, password.value)
                 .then((userCredential) => {
                     const user = userCredential.user;
+                    console.log(user);
+
                     navigate(from, { replace: true });
                 })
                 .catch((error) => {
@@ -68,8 +75,8 @@ const Signin = () => {
                             <input type='text' name='email' onBlur={handleEmail} id='email' />
                         </div>
                         {email.error && (
-                            <p className='error'>
-                                <AiOutlineExclamationCircle /> {email.error}
+                            <p className='d-flex error'>
+                                <AiOutlineExclamationCircle className='m-1' /> {email.error}
                             </p>
                         )}
                     </div>
@@ -84,8 +91,8 @@ const Signin = () => {
                             />
                         </div>
                         {password.error && (
-                            <p className='error'>
-                                <AiOutlineExclamationCircle /> {password.error}
+                            <p className='d-flex error'>
+                                <AiOutlineExclamationCircle className='m-1' /> {password.error}
                             </p>
                         )}
                     </div>
@@ -96,7 +103,7 @@ const Signin = () => {
                 </form>
                 <p className='redirect'>
                     For More Exploring{" "}
-                    <span onClick={() => navigate("/signUp")}>Create New Account</span>
+                    <Link to="/createUser">Create New Account</Link>
                 </p>
                 <div className='horizontal-divider'>
                     <div className='line-left' />

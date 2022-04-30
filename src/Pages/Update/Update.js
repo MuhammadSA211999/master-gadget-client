@@ -1,57 +1,67 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link, useParams } from 'react-router-dom';
 
 const Update = () => {
     const { id } = useParams()
-    const [contribution, setContribution] = useState({})
+    const [gadget, setGadget] = useState({})
     useEffect(() => {
-        const url = `http://localhost5000/update/${id}`
-        const singleContri = async () => {
+        // fetch(`http://localhost:5000/gadget/${id}`)
+        //     .then(res => res.json())
+        //     .then(data => setGadget(data))
+        (async () => {
+            const url = `http://localhost:5000/gadget/${id}`
             try {
                 const { data } = await axios.get(url)
-                setContribution(data.data)
+                setGadget(data)
             }
             catch (error) {
                 console.log(error);
 
             }
-        }
-        singleContri()
+        })()
 
     }, [id])
 
-    const handleSubmit = async (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault()
-        const email = e.target.email.value
         const name = e.target.name.value
         const price = e.target.price.value
-        const image = e.target.image.valeu
-        const service = { email, name, price, image }
-        const url = `http://localhost5000/update/${id}`
-        try {
-            const { data } = await axios.post(url, service)
-        }
-        catch (error) {
-            console.log(error);
+        const image = e.target.image.value
+        const quantity = e.target.quantity.value
+        const email = e.target.email.value
+        const gadget = { name, email, price, image, quantity }
+        e.target.reset()
 
+        const url = `http://localhost:5000/updateGadget/${id}`
+        try {
+            const { data } = await axios.put(url, gadget)
+            if (data.modifiedCount === 1 || data.matchedCount === 1) {
+                toast.success(`Successfully update ${name}`)
+            }
         }
+
+        catch (error) {
+            console.log(error)
+        }
+
     }
 
     return (
         <div className="py-10 px-20 min-h-screen w-full">
-            <h4>Your are updating the service yyt {contribution?.name}</h4>
+            <h4 className='text-center text-2xl text-green-900 font-sans font-medium'>Your are updating the {gadget?.name}</h4>
             <div className="py-32 px-10 min-h-screen w-full">
                 <div className="bg-white p-10 md:w-3/4 lg:w-1/2 mx-auto">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleUpdate}>
                         <div className="flex items-center mb-5">
                             <label className="inline-block w-40 mr-6 text-right font-bold text-gray-600">
-                                Service Name
+                                Gadget Name
                             </label>
                             <input
                                 type="text"
                                 name="name"
-                                placeholder="Name"
+                                placeholder="type new Name"
                                 className="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
                       text-gray-600 placeholder-gray-400
                       outline-none"
@@ -60,27 +70,16 @@ const Update = () => {
 
                         <div className="flex items-center mb-5">
                             <label className="inline-block w-40 mr-6 text-right font-bold text-gray-600">
-                                Your Email
+                                Quantity
                             </label>
                             <input
-                                type="email"
-                                name="name"
-                                placeholder="Email"
+                                type="number"
+                                name="quantity"
+                                placeholder="type new quantity"
                                 className="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
                       text-gray-600 placeholder-gray-400
                       outline-none"
                             />
-                        </div>
-
-                        <div className="flex items-center mb-5">
-                            <label htmlFor="date" className="inline-block w-40 mr-6 text-right font-bold text-gray-600" >Date</label>
-                            <input
-                                type="date"
-                                placeholder='Date'
-                                name="date"
-                                className="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
-                            text-gray-600 placeholder-gray-400
-                            outline-none" />
                         </div>
                         <div className="flex items-center mb-5">
                             <label className="inline-block w-40 mr-6 text-right font-bold text-gray-600">
@@ -89,7 +88,21 @@ const Update = () => {
                             <input
                                 type="text"
                                 name="price"
-                                placeholder="price"
+                                placeholder="type new price"
+                                className="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
+                      text-gray-600 placeholder-gray-400
+                      outline-none"
+                            />
+                        </div>
+
+                        <div className="flex items-center mb-5">
+                            <label className="inline-block w-40 mr-6 text-right font-bold text-gray-600">
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="type new your email"
                                 className="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
                       text-gray-600 placeholder-gray-400
                       outline-none"
@@ -106,7 +119,7 @@ const Update = () => {
                             <input
                                 type="text"
                                 name="image"
-                                placeholder="url"
+                                placeholder="type new image url"
                                 className="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
                       text-gray-600 placeholder-gray-400
                       outline-none"

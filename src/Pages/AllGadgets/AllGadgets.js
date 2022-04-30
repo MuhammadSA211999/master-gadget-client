@@ -1,10 +1,12 @@
 import './allGadgets.css'
 import React from 'react';
+import { useNavigate } from 'react-router-dom'
 import useGadgets from '../../Hooks/useGadget';
 import Gadget from '../Gadget/Gadget';
 
 const AllGadgets = () => {
-    const [gadgets, setGadgets] = useGadgets()
+    const navigate = useNavigate()
+    const [gadgets] = useGadgets()
     const sixGadgets = gadgets.slice(0, 6)
 
 
@@ -18,6 +20,9 @@ const AllGadgets = () => {
                         gadget={gadget}
                     ></Gadget>)
                 }
+                <button onClick={() => navigate('/inventory')} type="button" className="mx-auto btn text-white bg-blue-700 hover:bg-blue-800">
+                    Invent More
+                </button>
             </div>
         </div>
     );

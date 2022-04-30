@@ -5,13 +5,14 @@ import Addactivity from './Pages/Addactivity/Addactivity';
 import Header from './Pages/Header/Header';
 import ResetPass from './Pages/ResetPass/ResetPassword';
 import Signin from './Pages/User/Signin/Signin';
-import SignUp from './Pages/User/SignUp/SignUp';
 import { Toaster } from 'react-hot-toast';
 import WrongRoute from './Pages/WrongRoute/WrongRoute';
 import OrgInfo from './Pages/OrgInfo/OrgInfo';
 import Home from './Pages/Home/Home';
+import Inventory from '../src/Pages/Inventory/Inventory'
 import Update from './Pages/Update/Update';
 import MyItems from './Pages/MyItems/MyItems';
+import CreateUser from './Pages/User/SignUp/CreateUser';
 function App() {
   return (
     <div>
@@ -21,10 +22,11 @@ function App() {
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/home' element={<Home></Home>}></Route>
         <Route path='updateto/:id' element={<Update></Update>}></Route>
-        <Route path='/signUp' element={<SignUp></SignUp>}></Route>
+        <Route path='/createUser' element={<CreateUser></CreateUser>}></Route>
         <Route path='/signIn' element={<Signin></Signin>}></Route>
         <Route path='/resetPass' element={<ResetPass></ResetPass>}></Route>
         <Route path='/orgInfo' element={<OrgInfo></OrgInfo>}></Route>
+        <Route path='inventory' element={<Inventory></Inventory>}></Route>
         <Route path='myItems' element={<MyItems></MyItems>}></Route>
         <Route path='/manage' element={<Activity></Activity>}></Route>
         <Route path='/addGadget' element={<Addactivity></Addactivity>}></Route>

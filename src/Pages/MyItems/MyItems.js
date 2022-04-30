@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { signOut } from 'firebase/auth';
+import toast from 'react-hot-toast'
 
 const MyItems = () => {
     const [loading, setLoading] = useState(false)
@@ -14,7 +15,7 @@ const MyItems = () => {
 
 
     useEffect(() => {
-        const email = 'j.sanah1234@gmail.com'
+        const email = user?.email
         console.log(email);
         (async () => {
             const url = `http://localhost:5000/myGadgets?email=${email}`
@@ -29,28 +30,28 @@ const MyItems = () => {
             }
         })()
 
-    }, [user])
+    }, [user, loading])
 
-    const deleteGadget = async (id) => {
+    const deleteGadget = (id) => {
         const permission = window.confirm('Are want to delete?')
         if (permission) {
-            const url = `http://localhost5000/deleteGadget/${id}`
-            // try {
-            //     const { data } = await axios.delete(url)
-            //     console.log(data);
+            (async () => {
+                const { data } = await axios.delete(`http://localhost:5000/deleteGadget/${id}`);
 
-            // }
-            // catch (error) {
-            //     console.log(error);
+                if (data.deletedCount === 1) {
+                    toast.success('Deleted 1', { id: 'success' })
+                    setLoading(!loading)
 
-            // }
+                }
+
+            })()
         }
 
     }
 
     return (
         <div className='mx-auto'>
-            <h1 className='text-center'>Your total gadgets is{myGadgets.length}</h1>
+            <h1 className='text-center text-3xl font-semibold m-2 text-cyan-500'>YOUR TOTAL GADGET IS {myGadgets.length}</h1>
 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
