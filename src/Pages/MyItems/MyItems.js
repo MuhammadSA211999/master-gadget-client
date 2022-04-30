@@ -30,7 +30,7 @@ const MyItems = () => {
 
             catch (error) {
                 if (error.response.status === 401 || error.response.status === 403) {
-                    toast.error(error.message, { id: 'error' })
+                    toast.success('OHHH NOO!!', { id: 'error' })
                     signOut(auth)
                     navigate('/signIn')
                 }
@@ -84,7 +84,7 @@ const MyItems = () => {
                     </thead>
                     <tbody>
                         {
-                            myGadgets.map(gadget => <tr
+                            myGadgets?.map(gadget => <tr
                                 key={gadget._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                                     {gadget.name}

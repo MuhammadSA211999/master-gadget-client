@@ -24,7 +24,7 @@ const Signin = () => {
         const password = e.target.password.value
         await signInWithEmailAndPassword(email, password)
         const { data } = await axios.post('http://localhost:5000/login', { email })
-        const secretTokenStorage = data.secretToken
+        const secretTokenStorage = data?.secretToken
         localStorage.setItem('your_Token', secretTokenStorage)
         navigate(from, { replace: true })
     };

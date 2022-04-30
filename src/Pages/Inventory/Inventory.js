@@ -14,7 +14,6 @@ const Inventory = () => {
     const [displayGadgets, setDisplayNumber] = useState(4);
     const [onPage, setOnPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
-    // const [updated, setUpdated] = useState(false); for delete
     useEffect(() => {
         (async () => {
             const { data } = await axios.get(`http://localhost:5000/gadgetsByPaging?limit=${displayGadgets}&pageNumber=${onPage}`);

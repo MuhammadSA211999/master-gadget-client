@@ -1,8 +1,8 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
-import discount from '../../Images/discount.webp'
-import delivery from '../../Images/delivery.webp'
-import allNedds from '../../Images/allneeds.jpg'
+import discount from '../../Images/putul.png'
+import delivery from '../../Images/delivery.png'
+import allNedds from '../../Images/allneeds.png'
 
 const Banner = () => {
 
