@@ -10,35 +10,34 @@ const MyItems = () => {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const [user] = useAuthState(auth)
+    console.log(user?.email);
+
     const [myGadgets, setMyGadgets] = useState([])
     console.log(myGadgets);
 
-
     useEffect(() => {
-        const email = user?.email
-        console.log(email);
         (async () => {
-            const url = `http://localhost:5000/myGadgets?email=${email}`
+            const email = user?.email;
+            const url = `http://localhost:5000/myGadgets?email=${email}`;
             try {
                 const { data } = await axios.get(url, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('your_Token')}`
                     }
-                })
-                setMyGadgets(data)
+                });
+                setMyGadgets(data);
             }
-
             catch (error) {
+                console.log(error.message);
                 if (error.response.status === 401 || error.response.status === 403) {
-                    toast.success('OHHH NOO!!', { id: 'error' })
-                    signOut(auth)
-                    navigate('/signIn')
+                    signOut(auth);
+                    navigate('/login')
                 }
-
             }
         })()
 
-    }, [user, loading])
+
+    }, [user, navigate])
 
     const deleteGadget = (id) => {
         const permission = window.confirm('Are want to delete?')
@@ -49,12 +48,9 @@ const MyItems = () => {
                 if (data.deletedCount === 1) {
                     toast.success('Deleted 1', { id: 'success' })
                     setLoading(!loading)
-
                 }
-
             })()
         }
-
     }
 
     return (

@@ -1,7 +1,7 @@
 import './Signin.css'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import toast, { Toaster } from 'react-hot-toast';
 import useTokenMake from '../../../Hooks/useTikenMake'
@@ -11,39 +11,44 @@ import axios from 'axios';
 
 const Signin = () => {
     const location = useLocation()
-    const [user] = useAuthState(auth)
-    const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth)
-    const [email, setEmail] = useState({ value: "", error: "" });
-    const [password, setPassword] = useState({ value: "", error: "" });
-    const from = location?.state?.from?.pathname || '/'
     const navigate = useNavigate();
+    const from = location?.state?.from?.pathname || '/'
+    const [signInWithEmailAndPassord, user] = useSignInWithEmailAndPassword(auth)
+    const [token] = useTokenMake(user)
+    console.log(user?.user?.email);
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    // if (user) {
+    //     console.log(user);
+    //     navigate('/')
+    // }
+    if (token) {
+        console.log(token);
+        navigate(from, { replace: true })
+    }
+
+    const handleSignin = e => {
+        e.preventDefault()
         const email = e.target.email.value
         const password = e.target.password.value
-        await signInWithEmailAndPassword(email, password)
-        const { data } = await axios.post('http://localhost:5000/login', { email })
-        const secretTokenStorage = data?.secretToken
-        localStorage.setItem('your_Token', secretTokenStorage)
-        navigate(from, { replace: true })
-    };
+        signInWithEmailAndPassord(email, password)
+    }
+
     return (
         <div className='auth-form-container '>
             <Toaster></Toaster>
             <div className='auth-form'>
                 <h1>Login</h1>
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleSignin}>
                     <div className='input-field'>
                         <label htmlFor='email'>Email</label>
                         <div className='input-wrapper'>
                             <input type='text' name='email' id='email' />
                         </div>
-                        {email.error && (
+                        {/* {email.error && (
                             <p className='d-flex error'>
                                 <AiOutlineExclamationCircle className='m-1' /> {email.error}
                             </p>
-                        )}
+                        )} */}
                     </div>
                     <div className='input-field'>
                         <label htmlFor='password'>Password</label>
@@ -54,11 +59,11 @@ const Signin = () => {
                                 id='password'
                             />
                         </div>
-                        {password.error && (
+                        {/* {password.error && (
                             <p className='d-flex error'>
                                 <AiOutlineExclamationCircle className='m-1' /> {password.error}
                             </p>
-                        )}
+                        )} */}
                     </div>
                     <button type='submit' className='auth-form-submit'>
                         Login

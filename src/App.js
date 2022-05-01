@@ -14,6 +14,7 @@ import Update from './Pages/Update/Update';
 import MyItems from './Pages/MyItems/MyItems';
 import CreateUser from './Pages/User/SignUp/CreateUser';
 import RequireAuth from './Pages/RequireAuth/RequireAuth';
+import Blog from './Pages/Blog/Blog';
 function App() {
   return (
     <div>
@@ -35,6 +36,7 @@ function App() {
         <Route path='/myItems' element={<RequireAuth>
           <MyItems></MyItems>
         </RequireAuth>}></Route>
+        <Route path='/blog' element={<Blog></Blog>}></Route>
         <Route path='/manage' element={<RequireAuth>
           <Activity></Activity>
         </RequireAuth>}></Route>

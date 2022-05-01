@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
-import { useSignInWithFacebook, useSignInWithGithub, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithFacebook, useSignInWithGithub, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,15 +8,18 @@ import auth from '../../../firebase.init';
 import Google from '../../../Images/google.svg';
 import git from '../../../Images/gitlogo.png';
 import fb from '../../../Images/facebooklogo.png'
+import useTokenMake from '../../../Hooks/useTikenMake';
 const CreateUser = () => {
     const [signInWithGoogle, google] = useSignInWithGoogle(auth)
     const [signInWithFacebook, facebook] = useSignInWithFacebook(auth)
-    const [signInWithGithub, github, error] = useSignInWithGithub(auth)
-    console.log(error);
-
+    const [signInWithGithub, github] = useSignInWithGithub(auth)
+    const [createUserWithEmailAndPassword, user] = useCreateUserWithEmailAndPassword(auth)
     const [updateProfile] = useUpdateProfile(auth)
+    const [token] = useTokenMake(user || google || facebook || github)
+    console.log(token);
+
     const navigate = useNavigate();
-    const handleSignup = (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
         const name = e.target.name.value
         const email = e.target.email.value
@@ -28,16 +31,17 @@ const CreateUser = () => {
         if (email && (password === confirmPassword)) {
 
             try {
-                createUserWithEmailAndPassword(auth, email, password)
+                await createUserWithEmailAndPassword(email, password)
+                await updateProfile({ displayName: name })
+                toast.success('Thanks for membership', { id: 'test' })
+                // .then(result => {
+                //     const user = result.user
+                //     console.log(user);
 
-                    .then(result => {
-                        const user = result.user
-                        console.log(user);
+                //     updateProfile({ displayName: name })
 
-                        updateProfile({ displayName: name })
-                        navigate('/')
-                        toast.success('Thanks for membership', { id: 'test' })
-                    })
+
+                // })
             }
             catch (error) {
                 console.log(error)
@@ -45,7 +49,7 @@ const CreateUser = () => {
         }
     }
 
-    if (google || facebook || github) {
+    if (token) {
         toast.success('Thanks for joining', { id: 'test' })
         navigate('/')
     }

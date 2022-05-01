@@ -1,0 +1,58 @@
+.footer {
+    padding: 50px;
+}
+
+.footer-element {
+    padding-top: 30px;
+    padding-left: 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.service p {
+    margin: 0px;
+    color: antiquewhite;
+    font-weight: 300;
+}
+
+.address h6 {
+    margin: 2px;
+    color: antiquewhite;
+}
+
+.touch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.touch img {
+    margin-right: 5px;
+}
+
+.touch h5 {
+    color: aliceblue;
+}
+
+.social-contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width:576px) {
+    .footer-element {
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 10px;
+    }
+}
+
+@media only screen and (min-width:577px) and (max-width:992px) {
+    .footer-element {
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 5px;
+    }
+
+}

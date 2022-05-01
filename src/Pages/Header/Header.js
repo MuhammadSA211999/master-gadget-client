@@ -37,7 +37,12 @@ const Header = () => {
                     My Items
                 </NavLink> : ''}
 
-
+                <NavLink
+                    className={({ isActive }) => (isActive ? "active-link" : "link")}
+                    to='/blog'
+                >
+                    Blog
+                </NavLink>
                 {user?.email ? (
                     <button onClick={handleSignOut} className='logout-button'>
                         Logout
