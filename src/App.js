@@ -29,7 +29,6 @@ function App() {
         <Route path='/createUser' element={<CreateUser></CreateUser>}></Route>
         <Route path='/signIn' element={<Signin></Signin>}></Route>
         <Route path='/resetPass' element={<ResetPass></ResetPass>}></Route>
-        <Route path='/orgInfo' element={<OrgInfo></OrgInfo>}></Route>
         <Route path='/inventory' element={<RequireAuth>
           <Inventory></Inventory>
         </RequireAuth>}></Route>

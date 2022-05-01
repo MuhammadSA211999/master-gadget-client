@@ -1,28 +1,28 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react'
 import toast from 'react-hot-toast';
 
 const ShowGadgets = ({ gadget }) => {
     const { name, price, image, supplier, quantity, _id } = gadget
     const [deliver, setDeliver] = useState(quantity)
-    if (quantity > deliver) {
-        toast.success('Successfully Deliver', { id: 'test' })
-    }
+    console.log(deliver);
+    useEffect(() => {
+        (async () => {
+            const newUpdate = { deliver }
+            const url = `http://localhost:5000/deliverUpdate/${_id}`
+            try {
+                const { data } = await axios.put(url, newUpdate)
+                if (data.modifiedCount) {
+                    toast.success('Happy Delivered', { id: 'test' })
+                }
+            }
+            catch (error) {
+                console.log(error);
 
-    (async () => {
-        const newUpdate = { deliver }
-        const url = `http://localhost:5000/deliverUpdate/${_id}`
-        try {
-            const { data } = await axios.put(url, newUpdate)
-            console.log(data);
-
-        }
-        catch (error) {
-            console.log(error);
-
-        }
-    })()
+            }
+        })()
+    }, [deliver])
 
     return (
         <li className="py-3 sm:py-4">
@@ -38,10 +38,10 @@ const ShowGadgets = ({ gadget }) => {
                         {supplier}
                     </p>
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Stock: {quantity}
+                        Stock: {deliver}
                     </p>
-                    <button onClick={() => setDeliver(deliver - 1)} className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        deliver
+                    <button onClick={() => setDeliver(deliver - 1)} className="bg-sky-800 rounded p-1 text-white truncate">
+                        Deliver
                     </button>
                 </div>
                 <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">

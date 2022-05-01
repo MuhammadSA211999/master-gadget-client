@@ -1,4 +1,5 @@
 import './Header.css'
+import logo from '../../Images/signodo.png'
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
@@ -13,7 +14,7 @@ const Header = () => {
     return (
         <nav>
             <div className='logo-container'>
-                <strong>Logo</strong>
+                <img className='logo' src={logo} alt="" />
             </div>
             <div className='link-container'>
                 {
@@ -42,6 +43,12 @@ const Header = () => {
                     to='/blog'
                 >
                     Blog
+                </NavLink>
+                <NavLink
+                    className={({ isActive }) => (isActive ? "active-link" : "link")}
+                    to='/'
+                >
+                    Home
                 </NavLink>
                 {user?.email ? (
                     <button onClick={handleSignOut} className='logout-button'>

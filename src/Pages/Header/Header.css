@@ -1,5 +1,5 @@
 nav {
-    height: 50px;
+    height: 60px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -9,30 +9,37 @@ nav {
     font-family: "Teko", sans-serif;
 }
 
+
+
 .logo-container {
     display: flex;
     align-items: center;
     margin-top: 10px;
 }
 
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
 .logout-button {
     border: none;
     margin-left: 15px;
-    font-size: 24px;
+    font-size: 20px;
     font-family: "Teko", sans-serif;
     background-color: transparent;
     color: #1e90c2;
 }
 
 .logout-button:hover {
-    color: #1b4388;
+    color: #ce1212;
 }
 
 .link {
     text-decoration: none;
     border-bottom: 1px solid grey;
-    margin-left: 15px;
-    font-size: 24px;
+    margin-left: 10px;
+    font-size: 20px;
     color: #1e90c2;
     transition: color ease-in-out 300ms;
 }
@@ -46,8 +53,27 @@ nav {
     border-bottom: 2px;
     border-bottom-color: crimson;
     border-bottom-style: solid;
-    margin-left: 15px;
-    font-size: 24px;
+    margin-left: 10px;
+    font-size: 20px;
     transition: color ease-in-out 800ms;
     color: #1b4388;
+}
+
+@media only screen and (max-width:576px) {
+    .logout-button {
+        font-size: 15px;
+    }
+
+    .link {
+        font-size: 15px;
+    }
+
+    .active-link {
+        font-size: 15px
+    }
+
+    .logo {
+        display: none;
+    }
+
 }

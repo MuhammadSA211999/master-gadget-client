@@ -30,9 +30,28 @@ const Inventory = () => {
         })()
 
     }, [displayGadgets, onPage])
+    // const handleDeliver = (id, quantity) => {
+    //     const deliver = quantity - 1
+    //         // if (quantity > deliver) {
+    //         //     toast.success('Successfully Deliver', { id: 'test' })
+    //         // }
+
+    //         (async () => {
+    //             const newUpdate = { deliver }
+    //             const url = `http://localhost:5000/deliverUpdate/${id}`
+    //             try {
+    //                 const { data } = await axios.put(url, newUpdate)
+    //                 console.log(data);
+    //             }
+    //             catch (error) {
+    //                 console.log(error);
+
+    //             }
+    //         })()
+    // }
     return (
-        <div className='mx auto my-10'>
-            <div className="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div className=' my-10'>
+            <div className="p-4 sm:w-33 mx-auto max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex justify-between items-center mb-4">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Latest Collection</h5>
                     <Link to='/' className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
@@ -50,7 +69,7 @@ const Inventory = () => {
                     </ul>
                 </div>
             </div>
-            <div className="flex m-1 justify-center">
+            <div className="flex m-5 justify-center">
                 {[...Array(pageCount).keys()].map((number) =>
                 (
                     <div
