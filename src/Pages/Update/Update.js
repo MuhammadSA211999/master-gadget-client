@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Update = () => {
+    const navigate = useNavigate()
     const { id } = useParams()
     const [gadget, setGadget] = useState({})
     useEffect(() => {
@@ -49,11 +50,11 @@ const Update = () => {
     }
 
     return (
-        <div className="py-10 px-20 min-h-screen w-full">
+        <div className="mt-3 flex flex-col  items-center mx-auto">
             <h4 className='text-center text-2xl text-green-900 font-sans font-medium'>Your are updating the {gadget?.name}</h4>
-            <div className="py-32 px-10 min-h-screen w-full">
-                <div className="bg-white p-10 md:w-3/4 lg:w-1/2 mx-auto">
-                    <form onSubmit={handleUpdate}>
+            <div className="p-5 min-h-screen w-full">
+                <div className="bg-white p-2 md:w-3/4 lg:w-1/2 mx-auto">
+                    <form className='flex max-w-[300px] flex-col items-center' onSubmit={handleUpdate}>
                         <div className="flex items-center mb-5">
                             <label className="inline-block w-40 mr-6 text-right font-bold text-gray-600">
                                 Gadget Name
@@ -126,11 +127,11 @@ const Update = () => {
                             />
                         </div>
 
-                        <div className="text-right">
-                            <button className="py-3 px-8 bg-green-400 text-white font-bold">Add</button>
+                        <div className="ml-17">
+                            <button className="p-2 bg-yellow-600 text-white font-bold rounded">Add Items</button>
+                            <button onClick={() => navigate('/myItems')} className="ms-3 p-2 bg-blue-700 text-white font-bold rounded">Your Items</button>
                         </div>
                     </form>
-                    <Link to='/youractivity'>Show Activity</Link>
                 </div>
             </div>
 

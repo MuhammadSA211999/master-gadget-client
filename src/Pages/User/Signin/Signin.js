@@ -1,13 +1,9 @@
 import './Signin.css'
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useState } from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
-import { AiOutlineExclamationCircle } from "react-icons/ai";
 import toast, { Toaster } from 'react-hot-toast';
 import useTokenMake from '../../../Hooks/useTikenMake'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
-import axios from 'axios';
 
 const Signin = () => {
     const location = useLocation()

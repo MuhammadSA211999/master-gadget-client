@@ -2,8 +2,10 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react'
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const ShowGadgets = ({ gadget }) => {
+    const navigate = useNavigate()
     const { name, price, image, supplier, quantity, _id } = gadget
     const [deliver, setDeliver] = useState(quantity)
     console.log(deliver);
@@ -40,9 +42,15 @@ const ShowGadgets = ({ gadget }) => {
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                         Stock: {deliver}
                     </p>
-                    <button onClick={() => setDeliver(deliver - 1)} className="bg-sky-800 rounded p-1 text-white truncate">
-                        Deliver
-                    </button>
+                    <div className='d-flex'>
+                        <button onClick={() => setDeliver(deliver - 1)} className="bg-sky-800 rounded p-1 text-white truncate">
+                            Deliver
+                        </button>
+                        <button onClick={() => navigate(`/updateto/${_id}`)} className="ms-3 bg-sky-800 rounded p-1 text-white truncate">
+                            Update
+                        </button>
+                    </div>
+
                 </div>
                 <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                     $ {price}

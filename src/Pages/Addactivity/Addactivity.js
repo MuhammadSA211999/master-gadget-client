@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React from 'react';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Addactivity = () => {
+    const navigate = useNavigate()
     const handleSubmit = async (e) => {
         e.preventDefault();
         const gadget = {
@@ -33,9 +34,10 @@ const Addactivity = () => {
 
     };
     return (
-        <div className="py-32 px-10 min-h-screen w-full">
-            <div className="bg-white p-10 md:w-3/4 lg:w-1/2 mx-auto">
-                <form onSubmit={handleSubmit}>
+        <div className="py-10 flex flex-col  items-center mx-auto">
+            <div className="bg-white p-10">
+                <h1 className='text-2xl text-center my-3 font-semibold text-blue-800'>YOU ARE ADDING!!</h1>
+                <form className='flex max-w-[300px] flex-col items-center' onSubmit={handleSubmit}>
                     <div className="flex items-center mb-5">
                         <label className="inline-block w-40 mr-6 text-right font-bold text-gray-600">
                             Gadget Name
@@ -124,18 +126,18 @@ const Addactivity = () => {
                         <input
                             type="text"
                             name="image"
-                            placeholder="url"
+                            placeholder="image url"
                             className="flex-1 py-2 border-b-2 border-gray-400 focus:border-green-400 
                       text-gray-600 placeholder-gray-400
                       outline-none"
                         />
                     </div>
 
-                    <div className="text-right">
-                        <button className="py-3 px-8 bg-green-400 text-white font-bold">Add</button>
+                    <div className="ms-5 text-center">
+                        <button className="p-2 bg-yellow-600 text-white font-bold rounded">Add Items</button>
+                        <button onClick={() => navigate('/myItems')} className="ms-3 p-2 bg-blue-700 text-white font-bold rounded">Your Items</button>
                     </div>
                 </form>
-                <Link to='/myItems'>Your Items</Link>
             </div>
         </div>
     );
