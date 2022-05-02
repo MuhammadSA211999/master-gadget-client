@@ -37,7 +37,7 @@ const MyItems = () => {
         })()
 
 
-    }, [user, navigate])
+    }, [user, navigate, loading])
 
     const deleteGadget = (id) => {
         const permission = window.confirm('Are want to delete?')

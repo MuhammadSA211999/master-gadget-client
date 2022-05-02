@@ -7,7 +7,11 @@ import { useNavigate } from 'react-router-dom';
 const ShowGadgets = ({ gadget }) => {
     const navigate = useNavigate()
     const { name, price, image, supplier, quantity, _id } = gadget
+    console.log('quantity', quantity);
     const [deliver, setDeliver] = useState(quantity)
+    console.log('deliver', deliver);
+    const [load, setLoad] = useState(false)
+
     console.log(deliver);
     useEffect(() => {
         (async () => {
@@ -24,7 +28,27 @@ const ShowGadgets = ({ gadget }) => {
 
             }
         })()
-    }, [deliver])
+    }, [deliver, _id, quantity])
+
+    const handleAdd = deliver => {
+
+        (async () => {
+            const newUpdate = { deliver }
+            const url = `http://localhost:5000/addUpdate/${_id}`
+            try {
+                const { data } = await axios.put(url, newUpdate)
+                if (data.modifiedCount) {
+                    toast.success('successfully added', { id: 'test' })
+
+                }
+            }
+            catch (error) {
+                console.log(error);
+
+            }
+        })()
+
+    }
 
     return (
         <li className="py-3 sm:py-4">
@@ -43,6 +67,9 @@ const ShowGadgets = ({ gadget }) => {
                         Stock: {deliver}
                     </p>
                     <div className='d-flex'>
+                        <button onClick={() => handleAdd(deliver)} className="bg-sky-800 rounded p-1 text-white truncate">
+                            Add
+                        </button>
                         <button onClick={() => setDeliver(deliver - 1)} className="bg-sky-800 rounded p-1 text-white truncate">
                             Deliver
                         </button>
