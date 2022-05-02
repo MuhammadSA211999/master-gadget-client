@@ -25,9 +25,9 @@ const AllGadgets = () => {
 
                 </div>
             </div>
-            <div className='d-flex items-center'>
-                <Link className='items-center' to='/inventory'>Invent More</Link>
-            </div>
+
+            <button onClick={() => navigate('/inventory')} className='btn btn-primary d-block my-3 mx-auto'>Invent More</button>
+
         </div>
     );
 };

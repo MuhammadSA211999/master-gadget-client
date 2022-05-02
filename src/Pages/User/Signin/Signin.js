@@ -13,15 +13,27 @@ const Signin = () => {
     const location = useLocation()
     const navigate = useNavigate();
     const from = location?.state?.from?.pathname || '/'
-    const [signInWithEmailAndPassord, user] = useSignInWithEmailAndPassword(auth)
+    const [signInWithEmailAndPassord, user, loading, error] = useSignInWithEmailAndPassword(auth)
     const [token] = useTokenMake(user)
     console.log(user?.user?.email);
+    if (error) {
+        const userEr = (error.message.split(':')[1]);
+        const se = userEr.includes('user-not-found');
+        if (se) {
+            toast.error('user does not exist', { id: 'test' })
+        }
+        else {
+            toast.error(error.message, { id: 'test' })
+        }
 
+
+    }
     // if (user) {
     //     console.log(user);
     //     navigate('/')
     // }
     if (token) {
+        toast.success('Explore on!', { id: 'test' })
         console.log(token);
         navigate(from, { replace: true })
     }
@@ -31,6 +43,7 @@ const Signin = () => {
         const email = e.target.email.value
         const password = e.target.password.value
         signInWithEmailAndPassord(email, password)
+        e.target.reset()
     }
 
     return (
