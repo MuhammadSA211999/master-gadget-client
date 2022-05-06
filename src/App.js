@@ -7,7 +7,6 @@ import ResetPass from './Pages/ResetPass/ResetPassword';
 import Signin from './Pages/User/Signin/Signin';
 import { Toaster } from 'react-hot-toast';
 import WrongRoute from './Pages/WrongRoute/WrongRoute';
-import OrgInfo from './Pages/OrgInfo/OrgInfo';
 import Home from './Pages/Home/Home';
 import Inventory from '../src/Pages/Inventory/Inventory'
 import Update from './Pages/Update/Update';

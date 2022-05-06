@@ -1,9 +1,11 @@
 import React from 'react';
 import './Gadget.css'
+
 import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'
 
 const Gadget = ({ gadget }) => {
+    const navigate = useNavigate()
     const { name, price, image, supplier, description, _id } = gadget
     return (
         <Card className='hover:shadow-2xl' style={{ width: '18rem' }}>
@@ -19,7 +21,7 @@ const Gadget = ({ gadget }) => {
                 </Card.Text>
             </Card.Body>
             <Card.Body>
-                <Card.Link as={Link} to={`updateto/${_id}`}>Update</Card.Link>
+                <button onClick={() => navigate(`/updateto/${_id}`)} className='btn btn-primary'>Update</button>
             </Card.Body>
         </Card>
     );

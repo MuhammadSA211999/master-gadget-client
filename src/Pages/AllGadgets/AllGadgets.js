@@ -26,7 +26,7 @@ const AllGadgets = () => {
                 </div>
             </div>
 
-            <button onClick={() => navigate('/inventory')} className='btn btn-primary d-block my-3 mx-auto'>Invent More</button>
+            <button onClick={() => navigate('/inventory')} className='btn btn-primary d-block my-3 mx-auto'>Manage Invent</button>
 
         </div>
     );

@@ -1,8 +1,7 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useCreateUserWithEmailAndPassword, useSignInWithFacebook, useSignInWithGithub, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import toast, { Toaster } from 'react-hot-toast';
-import { AiOutlineExclamationCircle } from "react-icons/ai";
+
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import Google from '../../../Images/google.svg';
@@ -13,7 +12,7 @@ const CreateUser = () => {
     const [signInWithGoogle, google] = useSignInWithGoogle(auth)
     const [signInWithFacebook, facebook] = useSignInWithFacebook(auth)
     const [signInWithGithub, github] = useSignInWithGithub(auth)
-    const [createUserWithEmailAndPassword, user] = useCreateUserWithEmailAndPassword(auth)
+    const [createUserWithEmailAndPassword, user] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true })
     const [updateProfile] = useUpdateProfile(auth)
     const [token] = useTokenMake(user || google || facebook || github)
     console.log(token);
@@ -34,14 +33,6 @@ const CreateUser = () => {
                 await createUserWithEmailAndPassword(email, password)
                 await updateProfile({ displayName: name })
                 toast.success('Thanks for membership', { id: 'test' })
-                // .then(result => {
-                //     const user = result.user
-                //     console.log(user);
-
-                //     updateProfile({ displayName: name })
-
-
-                // })
             }
             catch (error) {
                 console.log(error)

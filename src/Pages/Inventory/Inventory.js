@@ -1,19 +1,21 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useGadgets from '../../Hooks/useGadget';
 import ShowGadgets from '../ShowGadgets/ShowGadgets';
 
 const Inventory = () => {
     // h00ks
     const [gadgets] = useGadgets()
+    const navigate = useNavigate()
     // pagination
     const [allGadgets, setGadgets] = useState([]);
     console.log(allGadgets);
     const [displayGadgets, setDisplayNumber] = useState(4);
     const [onPage, setOnPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         (async () => {
             const { data } = await axios.get(`http://localhost:5000/gadgetsByPaging?limit=${displayGadgets}&pageNumber=${onPage}`);
@@ -29,26 +31,8 @@ const Inventory = () => {
 
         })()
 
-    }, [displayGadgets, onPage])
-    // const handleDeliver = (id, quantity) => {
-    //     const deliver = quantity - 1
-    //         // if (quantity > deliver) {
-    //         //     toast.success('Successfully Deliver', { id: 'test' })
-    //         // }
+    }, [displayGadgets, onPage, loading])
 
-    //         (async () => {
-    //             const newUpdate = { deliver }
-    //             const url = `http://localhost:5000/deliverUpdate/${id}`
-    //             try {
-    //                 const { data } = await axios.put(url, newUpdate)
-    //                 console.log(data);
-    //             }
-    //             catch (error) {
-    //                 console.log(error);
-
-    //             }
-    //         })()
-    // }
     return (
         <div className=' my-10'>
             <div className="p-4 sm:w-33 mx-auto max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -62,19 +46,25 @@ const Inventory = () => {
                     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                         {
                             allGadgets.map(gadget => <ShowGadgets
+                                loading={loading}
+                                setLoading={setLoading}
                                 key={gadget._id}
                                 gadget={gadget}
                             ></ShowGadgets>)
                         }
                     </ul>
                 </div>
+
             </div>
-            <div className="flex m-5 justify-center">
+            <button onClick={() => navigate('/addGadget')} className="mx-auto d-block my-3 bg-green-800 rounded p-1 text-white truncate">
+                Add More
+            </button>
+            <div className="flex m-2 justify-center">
                 {[...Array(pageCount).keys()].map((number) =>
                 (
                     <div
                         onClick={() => setOnPage(number)}
-                        className={`m-2 cursor-pointer border border-black p-2 ${onPage === number ? "bg-black text-white" : ""
+                        className={`rounded-lg m-2 cursor-pointer border border-red-700 p-2 ${onPage === number ? "bg-green-800 text-white" : ""
                             }`}
                     >
                         {number + 1}

@@ -4,52 +4,22 @@ import { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-const ShowGadgets = ({ gadget }) => {
+const ShowGadgets = ({ gadget, setLoading, loading }) => {
     const navigate = useNavigate()
-    const { name, price, image, supplier, quantity, _id } = gadget
-    console.log('quantity', quantity);
-    const [deliver, setDeliver] = useState(quantity)
-    console.log('deliver', deliver);
-    const [load, setLoad] = useState(false)
+    const { name, price, image, supplier, _id } = gadget
+    const deleteGadget = (id) => {
+        const permission = window.confirm('Are want to delete?')
+        if (permission) {
+            (async () => {
+                const { data } = await axios.delete(`http://localhost:5000/deleteGadget/${id}`);
 
-    console.log(deliver);
-    useEffect(() => {
-        (async () => {
-            const newUpdate = { deliver }
-            const url = `http://localhost:5000/deliverUpdate/${_id}`
-            try {
-                const { data } = await axios.put(url, newUpdate)
-                if (data.modifiedCount) {
-                    toast.success('Happy Delivered', { id: 'test' })
+                if (data.deletedCount === 1) {
+                    toast.success('Deleted 1', { id: 'success' })
+                    setLoading(!loading)
                 }
-            }
-            catch (error) {
-                console.log(error);
-
-            }
-        })()
-    }, [deliver, _id, quantity])
-
-    const handleAdd = deliver => {
-
-        (async () => {
-            const newUpdate = { deliver }
-            const url = `http://localhost:5000/addUpdate/${_id}`
-            try {
-                const { data } = await axios.put(url, newUpdate)
-                if (data.modifiedCount) {
-                    toast.success('successfully added', { id: 'test' })
-
-                }
-            }
-            catch (error) {
-                console.log(error);
-
-            }
-        })()
-
+            })()
+        }
     }
-
     return (
         <li className="py-3 sm:py-4">
             <div className="flex items-center space-x-4">
@@ -63,15 +33,10 @@ const ShowGadgets = ({ gadget }) => {
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                         {supplier}
                     </p>
-                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Stock: {deliver}
-                    </p>
+
                     <div className='d-flex'>
-                        <button onClick={() => handleAdd(deliver)} className="bg-sky-800 rounded p-1 text-white truncate">
-                            Add
-                        </button>
-                        <button onClick={() => setDeliver(deliver - 1)} className="bg-sky-800 rounded p-1 text-white truncate">
-                            Deliver
+                        <button onClick={() => { deleteGadget(_id) }} className="bg-red-800 rounded p-1 text-white truncate">
+                            Delete
                         </button>
                         <button onClick={() => navigate(`/updateto/${_id}`)} className="ms-3 bg-sky-800 rounded p-1 text-white truncate">
                             Update
