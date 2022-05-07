@@ -46,7 +46,7 @@ const Signin = () => {
         <div className='auth-form-container '>
             <Toaster></Toaster>
             <div className='auth-form'>
-                <h1>Login</h1>
+                <h1 className='text-xl font-bold'>Login</h1>
                 <form onSubmit={handleSignin}>
                     <div className='input-field'>
                         <label htmlFor='email'>Email</label>

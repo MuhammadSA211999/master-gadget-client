@@ -57,8 +57,8 @@ const CreateUser = () => {
     return (
         <div className='auth-form-container '>
             <div className='auth-form'>
-                <h1>Create an acoount</h1>
-                <h1 className="project">Zusan</h1>
+                <h1 className='text-lg font-thin'>Create an acoount</h1>
+                <h1 className="project text-xl font-semibold">Master Gadget</h1>
                 <input type="image" src="" alt="" />
 
                 <form onSubmit={handleSignup}>
