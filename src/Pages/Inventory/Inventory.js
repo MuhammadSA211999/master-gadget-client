@@ -18,7 +18,7 @@ const Inventory = () => {
     const [loading, setLoading] = useState(false)
     useEffect(() => {
         (async () => {
-            const { data } = await axios.get(`http://localhost:5000/gadgetsByPaging?limit=${displayGadgets}&pageNumber=${onPage}`);
+            const { data } = await axios.get(`https://frozen-springs-79370.herokuapp.com/gadgetsByPaging?limit=${displayGadgets}&pageNumber=${onPage}`);
 
             if (!data?.success) {
                 setGadgets([])

@@ -7,7 +7,7 @@ const useGadgets = () => {
 
         (async () => {
             try {
-                const url = 'http://localhost:5000/gadgets'
+                const url = 'https://frozen-springs-79370.herokuapp.com/gadgets'
                 const { data } = await axios.get(url)
                 setGadgets(data)
             }

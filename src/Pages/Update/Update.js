@@ -15,7 +15,7 @@ const Update = () => {
 
     useEffect(() => {
         (async () => {
-            const url = `http://localhost:5000/gadget/${id}`
+            const url = `https://frozen-springs-79370.herokuapp.com/gadget/${id}`
             try {
                 const { data } = await axios.get(url)
                 setGadget(data)
@@ -35,7 +35,7 @@ const Update = () => {
             console.log(reQuantity, quantity);
 
             console.log(newQuantity);
-            const url = `http://localhost:5000/restockGadget/${id}`
+            const url = `https://frozen-springs-79370.herokuapp.com/restockGadget/${id}`
             try {
                 const { data } = await axios.put(url, { newQuantity })
                 if (data.modifiedCount === 1 || data.matchedCount === 1) {
@@ -49,11 +49,10 @@ const Update = () => {
         }
         e.target.reset()
     }
-    // do best
     const handleDeliver = () => {
         (async () => {
             const newUpdate = { quantity }
-            const url = `http://localhost:5000/deliverUpdate/${_id}`
+            const url = `https://frozen-springs-79370.herokuapp.com/deliverUpdate/${_id}`
             try {
                 const { data } = await axios.put(url, newUpdate)
                 if (data.modifiedCount) {

@@ -18,7 +18,7 @@ const MyItems = () => {
     useEffect(() => {
         (async () => {
             const email = user?.email;
-            const url = `http://localhost:5000/myGadgets?email=${email}`;
+            const url = `https://frozen-springs-79370.herokuapp.com/myGadgets?email=${email}`;
             try {
                 const { data } = await axios.get(url, {
                     headers: {
@@ -43,7 +43,7 @@ const MyItems = () => {
         const permission = window.confirm('Are want to delete?')
         if (permission) {
             (async () => {
-                const { data } = await axios.delete(`http://localhost:5000/deleteGadget/${id}`);
+                const { data } = await axios.delete(`https://frozen-springs-79370.herokuapp.com/deleteGadget/${id}`);
 
                 if (data.deletedCount === 1) {
                     toast.success('Deleted 1', { id: 'success' })
